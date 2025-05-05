@@ -7,9 +7,7 @@ void main() async {
 
   await ScreenUtil.ensureScreenSize();
 
-  runApp(
-    MyApp(),
-  );
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
