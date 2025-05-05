@@ -1,15 +1,20 @@
 #!/bin/bash
 set -e  # Exit immediately if a command fails
-echo "Current directory: $(pwd)"
-echo "Directory contents: $(ls -la)"
-echo "Flutter directory exists: $(test -d flutter && echo 'Yes' || echo 'No')"
-echo "Flutter binary exists: $(test -f flutter/bin/flutter && echo 'Yes' || echo 'No')"
-echo "Flutter binary is executable: $(test -x flutter/bin/flutter && echo 'Yes' || echo 'No')"
+echo "Setting git config..."
+git config --global --add safe.directory '*'
 
+echo "Downloading Flutter..."
+curl -o flutter.tar.xz https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_3.19.3-stable.tar.xz
+
+echo "Extracting Flutter..."
+tar xf flutter.tar.xz
+
+echo "Setting up Flutter environment..."
 export PATH="$PATH:`pwd`/flutter/bin"
-echo "Updated PATH: $PATH"
-echo "Flutter version:"
-./flutter/bin/flutter --version || echo "Could not run Flutter"
+echo "Flutter path: $PATH"
 
-echo "Starting Flutter build in verbose mode..."
-./flutter/bin/flutter build web --release --verbose || echo "Flutter build failed"
+echo "Configuring Flutter..."
+./flutter/bin/flutter --version
+./flutter/bin/flutter config --enable-web
+
+echo "Flutter setup complete!"
