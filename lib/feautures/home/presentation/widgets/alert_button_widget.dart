@@ -84,8 +84,8 @@ class AlertButtonWidget extends StatelessWidget {
                         height: 33.h,
                       ),
                     ],
-                  ),
-                ),
+                  )
+                )
               );
       },
     );
